@@ -13,8 +13,10 @@ Sentence = namedtuple("Sentence", "words tags")
 def read_data(filename):
     """Read tagged sentence data"""
     with open(filename, 'r') as f:
+    # sparse the sentence and tags
         sentence_lines = [l.split("\n") for l in f.read().split("\n\n")]
     
+    # sparse the word and tag here -> Sentence.words,  Sentence.tags
     return OrderedDict(((s[0], Sentence(*zip(*[l.strip().split("\t")
                     for l in s[1:]]))) for s in sentence_lines if s[0]))
 
@@ -22,6 +24,7 @@ def read_tags(filename):
     """ Read a list of word tag classes """
     with open(filename, 'r') as f:
         tags = f.read().split("\n")
+    # immutable hashset
     return frozenset(tags)
 
 def model2png(model, filename="", overwrite=False, show_ends=False):
@@ -57,6 +60,7 @@ def model2png(model, filename="", overwrite=False, show_ends=False):
     img_data = BytesIO()
     img_data.write(png_data)
     img_data.seek(0)
+    
     if filename:
         if os.path.exists(filename) and not overwrite:
             raise IOError("File already exists. Use overwrite=True to replace existing files on disk.")
@@ -91,6 +95,7 @@ def show_model(model, figsize=(5,5), **kwargs):
 
 class Subset(namedtuple("BaseSet", "sentences keys vocab X tagset Y N stream")):
     def __new__(cls, sentences, keys):
+        # return the attributes
         word_sequences = tuple([sentences[k].words for k in keys])
         tag_sequences = tuple([sentences[k].tags for k in keys])
         wordset = frozenset(chain(*word_sequences))
@@ -99,7 +104,9 @@ class Subset(namedtuple("BaseSet", "sentences keys vocab X tagset Y N stream")):
         stream = tuple(zip(chain(*word_sequences), chain(*tag_sequences)))
         return super().__new__(cls, {k: sentences[k] for k in keys}, keys, wordset, word_sequences,
                                tagset, tag_sequences, N, stream.__iter__)
-                               
+        # X: word_sequences
+        # Y: tag_sequences
+        
     def __len__(self):
         return len(self.sentences)
 
@@ -121,11 +128,17 @@ class Dataset(namedtuple("_Dataset", "sentences keys vocab X tagset Y training_s
         if seed is not None: random.seed(seed)
         random.shuffle(_keys)
         split = int(train_test_split * len(_keys))
+        # train and test split
         training_data = Subset(sentences, _keys[:split])
+        # train and test split
         testing_data = Subset(sentences, _keys[split:])
+        # zip associate them together
         stream = tuple(zip(chain(*word_sequences), chain(*tag_sequences)))
         return super().__new__(cls, dict(sentences), keys, wordset, word_sequences, tagset,
                                tag_sequences, training_data, testing_data, N, stream.__iter__)
+        
+        # X: word_sequences
+        # Y: tag_sequences
 
     def __len__(self):
         return len(self.sentences)
