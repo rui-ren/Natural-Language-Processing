@@ -12,3 +12,6 @@ The repository for NLP projects like Sentiment Analysis, Part of Speech, Topic M
 
 ## Project 3.
   - Sentiment Analysis
+  
+## Project 4.
+  - Machine Translation
