@@ -11,7 +11,8 @@ The repository for NLP projects like Sentiment Analysis, Part of Speech, Topic M
   - BERT model for Part of Speech
 
 ## Project 3.
-  - Sentiment Analysis
+  - Sentiment Analysis using Xgboost, LSTM and Bert model
+  - Model deployment using Sagemake, Lambda and API Gateway
   
 ## Project 4.
   - Machine Translation
