@@ -5,8 +5,8 @@ import random
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.externals import joblib
-
-
+import matplotlib.pyplot as plt
+import sklearn.preprocessing as pr
 
 # def BoW model here
 
@@ -46,6 +46,10 @@ def extract_BoW_features(words_train,
         
         return features_train, features_test, vocabulary
 
+def normalize(data_train, data_test):
+    feature_train = pr.normalize(data_train, axis=1)
+    feature_test = pr.normalize(data_test,axis=1)
+
 if __name__ == "__main__":
 
     features_train, features_test, vocabulary = extract_BoW_features(words_train, words_test)
@@ -57,6 +61,12 @@ if __name__ == "__main__":
     print(features_train[5])
     print("\n -----Label------")
     print(labels_train[5])
+    
+    plt.plot(features_train[5, :])
+    plt.xlabel('Words')
+    plt.ylabel('Count')
+    plt.show()
+    
     
     
     
