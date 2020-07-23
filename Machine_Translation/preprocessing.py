@@ -3,9 +3,11 @@
 # end to end machine learning pipeline
 # Translate the machine learning pipeline from 
 
+
 import collections
 import helper
 import numpy as np
+
 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -14,6 +16,7 @@ from keras.layers import GRU, Input, Dense, TimeDistributed, Activation, RepeatV
 from keras.layers.embeddings import Embedding
 from keras.optimizers import Adam
 from keras.losses import sparse_categorical_crossentropy
+
 
 # load english word -- ETL
 english_sentence = helper.load_data('/data/small_vocab_en')
@@ -72,7 +75,7 @@ def preprocessing(x, y):
     preprocess_x = pad(preprocess_x)
     preprocess_y = pad(preprocess_y)
     
-    # Keras sparse categorical crossentropy
+    # Keras sparse categorical crossentropy --> 3 x 1
     preprocess_y = preprocess_y.reshape(*preprocess_y.shape, 1)
     
     return preprocess_x, preprocess_y, x_tk, y_tk
