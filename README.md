@@ -16,3 +16,6 @@ The repository for NLP projects like Sentiment Analysis, Part of Speech, Topic M
   
 ## Project 4.
   - Machine Translation
+
+## Project 5.
+  - Acoustic Speech Recognition (ASR)
