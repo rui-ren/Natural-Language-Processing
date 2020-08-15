@@ -19,3 +19,4 @@ The repository for NLP projects like Sentiment Analysis, Part of Speech, Topic M
 
 ## Project 5.
   - Acoustic Speech Recognition (ASR)
+  - DNN
